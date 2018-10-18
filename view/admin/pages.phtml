@@ -1,0 +1,51 @@
+<head>
+    <title>Pages</title>
+    <link rel="shortcut icon" href="../../assets/logo.ico" />
+    <?php require "../config/bootstrap_head.php" ?>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <span class="navbar-brand"><i>SURVEY GENERATOR</i></span>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/survey_generator/public/index.php/">FRAMEWORK</a></li>
+            <li><a href="/survey_generator/public/index.php/admin">ADMINISTRATION PANEL</a></li>
+        </ul>
+        <button class="btn btn-info navbar-btn pull-right" data-toggle="modal" data-target="#form"">
+            <span class="glyphicon glyphicon-plus"></span>
+            Add Page
+        </button>
+        <form method="post" class="navbar-btn pull-right"
+              action="/survey_generator/public/index.php/survey_save?id=<?= $id ?>">
+            <button type="submit" class="btn btn-primary btn-md pull-left">
+                <span class="glyphicon glyphicon-floppy-disk"></span>
+                SAVE
+            </button>
+        </form>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="panel">
+        <div class="panel-heading clearfix">
+            <h2>&nbsp;&nbsp;<?= $pageName ?></h2>
+            <span class="text-muted"> <?= $startDate ?> | <?= $expirationDate ?> </span>
+        </div>
+        <hr>
+        <div class="panel-body">
+            <blockquote><p><?= $pageSubject ?></p>
+            </blockquote>
+            <div class="list-group">
+                <?php \Service\PageGroupListDrawer::drawGroupList($id,  true) ?>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php require "../config/bootstrap_body.php" ?>
+<?php require "../view/forms/page_form.phtml" ?>
+
+</body>
+</html>

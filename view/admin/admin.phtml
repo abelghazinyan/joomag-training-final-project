@@ -1,0 +1,67 @@
+<head>
+    <title>Administration Panel</title>
+    <link rel="shortcut icon" href="../../assets/logo.ico" />
+    <?php require "../config/bootstrap_head.php" ?>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand"><i>SURVEY GENERATOR</i></span>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/survey_generator/public/index.php/">FRAMEWORK</a></li>
+                <li class="active"><a href="/survey_generator/public/index.php/admin">ADMINISTRATION PANEL</a></li>
+            </ul>
+            <button class="btn btn-info navbar-btn pull-right" data-toggle="modal" data-target="#form" ">
+                <span class="glyphicon glyphicon-plus"></span>
+                Create a Survey
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="panel">
+            <div class="panel-heading clearfix">
+                <h2>ADMINISTRATION PANEL</h2>
+            </div>
+            <hr>
+            <div class="panel-body">
+                <ul class="list-group list-inline center-block text-center">
+                    <li class="list-group-item-success">Active</li>
+                    <li class="list-group-item-info">Not Started But Has Content</li>
+                    <li class="list-group-item-warning">No Content or Not saved Content</li>
+                    <li class="list-group-item-danger">Expired</li>
+                </ul>
+                <div class="list-group">
+                        <?php \Service\SurveyGroupListDrawer::drawGroupList(1, true) ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php require "../config/bootstrap_body.php" ?>
+
+    <?php require "../view/forms/survey_form.phtml" ?>
+
+</body>
+</html>
+<script>
+    //Ajax pagination
+    var container = document.getElementsByClassName('list-group');
+    var page = 1;
+    window.onscroll = function(ev) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    container[0].innerHTML += this.responseText;
+                }
+            };
+            page++;
+            xhttp.open("GET", "/survey_generator/public/index.php/admin=" + page);
+            xhttp.send();
+
+        }
+    };
+</script>
